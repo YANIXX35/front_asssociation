@@ -1,0 +1,109 @@
+<section class="inner-hero">
+  <div class="container">
+    <h1>Présentation de l'association</h1>
+  </div>
+</section>
+
+@if (info) {
+  <section class="section">
+    <div class="container about-grid">
+      <div>
+        <h2>{{ info.nom_complet }}</h2>
+        <p>
+          Créé le {{ info.date_creation | date: 'dd MMMM yyyy' }}
+          @if (info.lieu_creation) { à {{ info.lieu_creation }} }
+        </p>
+        @if (info.president_nom) {
+          <p><strong>Président en exercice :</strong> {{ info.president_nom }}</p>
+        }
+        @if (info.president_devise) {
+          <p class="devise">« {{ info.president_devise }} »</p>
+        }
+      </div>
+      <div class="about-placeholder">
+        <img src="images/logo.jpeg" alt="CESCI" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="container grid grid-3">
+      @if (info.vision) {
+        <div class="card info-card">
+          <h3>Vision</h3>
+          <p>{{ info.vision }}</p>
+        </div>
+      }
+      @if (info.mission) {
+        <div class="card info-card">
+          <h3>Mission</h3>
+          <p>{{ info.mission }}</p>
+        </div>
+      }
+      @if (info.valeurs) {
+        <div class="card info-card">
+          <h3>Valeurs</h3>
+          <p>{{ info.valeurs }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  @if (info.historique) {
+    <section class="section">
+      <div class="container">
+        <h2>Historique</h2>
+        <p>{{ info.historique }}</p>
+      </div>
+    </section>
+  }
+} @else {
+  <section class="section">
+    <div class="container">
+      <p>Les informations de présentation seront bientôt disponibles.</p>
+    </div>
+  </section>
+}
+
+<section class="section section-light">
+  <div class="container">
+    <div class="section-title">
+      <h2>Nos partenaires</h2>
+      <p>Les entreprises et universités qui accompagnent le CESCI</p>
+    </div>
+
+    <h3 class="partner-group-title">Entreprises</h3>
+    <div class="partners-row">
+      @for (partner of entreprises; track partner.id) {
+        @if (partner.lien) {
+          <a [href]="partner.lien" target="_blank" rel="noopener" class="partner-logo">
+            <img [src]="partner.logo || 'images/logo.jpeg'" [alt]="partner.nom" />
+          </a>
+        } @else {
+          <div class="partner-logo">
+            <img [src]="partner.logo || 'images/logo.jpeg'" [alt]="partner.nom" />
+          </div>
+        }
+      } @empty {
+        <p>Les partenaires entreprises seront bientôt affichés ici.</p>
+      }
+    </div>
+
+    <h3 class="partner-group-title">Universités</h3>
+    <div class="partners-row">
+      @for (partner of universites; track partner.id) {
+        @if (partner.lien) {
+          <a [href]="partner.lien" target="_blank" rel="noopener" class="partner-logo">
+            <img [src]="partner.logo || 'images/logo.jpeg'" [alt]="partner.nom" />
+          </a>
+        } @else {
+          <div class="partner-logo">
+            <img [src]="partner.logo || 'images/logo.jpeg'" [alt]="partner.nom" />
+          </div>
+        }
+      } @empty {
+        <p>Les partenaires universitaires seront bientôt affichés ici.</p>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Candidatures d'adhésion</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>WhatsApp</th>
+          <th>Email</th>
+          <th>Niveau</th>
+          <th>Filière / Établissement</th>
+          <th>Statut</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (app of applications; track app.id) {
+          <tr>
+            <td>{{ app.noms_prenoms }}</td>
+            <td>{{ app.whatsapp }}</td>
+            <td>{{ app.email }}</td>
+            <td>{{ app.niveau_etude === 'autre' ? app.niveau_etude_autre : niveauLabels[app.niveau_etude] }}</td>
+            <td>{{ app.filiere_etablissement }}</td>
+            <td>{{ app.statut }}</td>
+            <td>{{ app.date_soumission | date: 'dd/MM/yyyy' }}</td>
+            <td class="actions">
+              @if (app.statut === 'en_attente') {
+                <button (click)="updateStatus(app, 'acceptee')">Accepter</button>
+                <button (click)="updateStatus(app, 'refusee')">Refuser</button>
+              }
+              @if (app.statut === 'acceptee') {
+                <button (click)="createAccount(app)">Créer le compte</button>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="8">Aucune candidature reçue.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

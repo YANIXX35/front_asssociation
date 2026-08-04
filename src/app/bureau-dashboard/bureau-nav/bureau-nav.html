@@ -1,0 +1,21 @@
+<aside class="dashboard-nav">
+  <p class="welcome">Espace bureau</p>
+  <nav>
+    <a routerLink="/bureau" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Vue d'ensemble</a>
+    <a routerLink="/bureau/organigramme" routerLinkActive="active">Organigramme</a>
+    <a routerLink="/bureau/contenu" routerLinkActive="active">Contenu du site</a>
+    <a routerLink="/bureau/membres" routerLinkActive="active">Membres CESCI</a>
+    <a routerLink="/bureau/adhesions" routerLinkActive="active">Candidatures d'adhésion</a>
+    <a routerLink="/bureau/creer-membre" routerLinkActive="active">Créer un membre</a>
+    <a routerLink="/bureau/formations" routerLinkActive="active">Formations</a>
+    <a routerLink="/bureau/smart-event" routerLinkActive="active">Smart event</a>
+    <a routerLink="/bureau/offres-professionnelles" routerLinkActive="active">Offres pro</a>
+    <a routerLink="/bureau/smart-gamme" routerLinkActive="active">Smart gamme</a>
+    <a routerLink="/bureau/mentorat" routerLinkActive="active">Mentorat</a>
+    <a routerLink="/bureau/communication" routerLinkActive="active">Communication</a>
+    @if (auth.currentUser()?.direction === 'finances') {
+      <a routerLink="/bureau/finances" routerLinkActive="active">Finances</a>
+    }
+    <a routerLink="/tableau-de-bord/profil" routerLinkActive="active">Mon profil</a>
+  </nav>
+</aside>

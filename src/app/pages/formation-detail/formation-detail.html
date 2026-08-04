@@ -1,0 +1,60 @@
+@if (formation) {
+  <section class="inner-hero">
+    <div class="container">
+      <h1>{{ formation.titre }}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container formation-detail-grid">
+      <div>
+        <img [src]="formation.image || 'images/p1.png'" [alt]="formation.titre" class="formation-image" />
+        <p>{{ formation.description }}</p>
+
+        <h2>Contenu de la formation</h2>
+        @if (formation.lessons?.length) {
+          <ul class="lesson-list">
+            @for (lesson of formation.lessons; track lesson.id) {
+              <li>
+                <i class="fa" [class.fa-play-circle]="lesson.type === 'video'" [class.fa-file-pdf-o]="lesson.type === 'pdf'" [class.fa-file-text-o]="lesson.type === 'texte'"></i>
+                @if (auth.isLoggedIn()) {
+                  <a [routerLink]="['/tableau-de-bord/lecon', lesson.id]">{{ lesson.titre }}</a>
+                } @else {
+                  {{ lesson.titre }}
+                }
+              </li>
+            }
+          </ul>
+        } @else {
+          <p>Le contenu détaillé sera bientôt disponible.</p>
+        }
+      </div>
+
+      <aside class="formation-sidebar card">
+        <p><strong>Direction organisatrice :</strong> {{ formation.direction_organisatrice || '—' }}</p>
+        <p><strong>Niveau :</strong> {{ formation.niveau }}</p>
+        <p><strong>Durée :</strong> {{ formation.duree_heures }}h</p>
+        @if (formation.places_disponibles) {
+          <p><strong>Places disponibles :</strong> {{ formation.places_disponibles }}</p>
+        }
+        @if (formation.type_attestation) {
+          <p><strong>Attestation :</strong> {{ formation.type_attestation }}</p>
+        }
+        <p><strong>Inscrits :</strong> {{ formation.nb_inscrits }}</p>
+
+        @if (errorMessage) {
+          <div class="alert alert-error">{{ errorMessage }}</div>
+        }
+
+        <button class="btn-primary" (click)="enroll()" [disabled]="enrolling || enrolled">
+          {{ enrolled ? 'Déjà inscrit' : (enrolling ? 'Inscription...' : "S'inscrire") }}
+        </button>
+        @if (!auth.isLoggedIn()) {
+          <p class="auth-hint">Connexion requise pour vous inscrire.</p>
+        }
+      </aside>
+    </div>
+  </section>
+} @else {
+  <p class="text-center">Chargement de la formation...</p>
+}

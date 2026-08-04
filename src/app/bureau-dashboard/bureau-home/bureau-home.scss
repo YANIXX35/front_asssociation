@@ -1,0 +1,15 @@
+.stat-card {
+  padding: 30px;
+  text-align: center;
+
+  .stat-value {
+    display: block;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .stat-label {
+    color: #6b6b6b;
+  }
+}

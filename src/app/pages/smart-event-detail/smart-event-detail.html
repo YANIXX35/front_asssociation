@@ -1,0 +1,35 @@
+@if (event) {
+  <section class="inner-hero">
+    <div class="container">
+      <h1>{{ event.titre }}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container formation-detail-grid">
+      <div>
+        <img [src]="event.affiche || 'images/p2.png'" [alt]="event.titre" class="formation-image" />
+        <p>{{ event.description }}</p>
+      </div>
+
+      <aside class="formation-sidebar card">
+        <p><strong>Date :</strong> {{ event.date | date: 'dd MMMM yyyy, HH:mm' }}</p>
+        <p><strong>Lieu :</strong> {{ event.lieu }}</p>
+        <p><strong>Inscrits :</strong> {{ event.nb_inscrits }}</p>
+
+        @if (errorMessage) {
+          <div class="alert alert-error">{{ errorMessage }}</div>
+        }
+        @if (registered) {
+          <div class="alert alert-success">Inscription confirmée !</div>
+        }
+
+        <button class="btn-primary" (click)="register()" [disabled]="registering || registered">
+          {{ registered ? 'Déjà inscrit' : (registering ? 'Inscription...' : "S'inscrire") }}
+        </button>
+      </aside>
+    </div>
+  </section>
+} @else {
+  <p class="text-center">Chargement...</p>
+}

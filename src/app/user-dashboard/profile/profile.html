@@ -1,0 +1,54 @@
+<div class="dashboard-layout">
+  <app-dashboard-nav></app-dashboard-nav>
+
+  <div class="dashboard-content">
+    <h2>Mon profil</h2>
+
+    <div class="card profile-card">
+      <h3>Informations personnelles</h3>
+      @if (profileMessage) {
+        <div class="alert alert-success">{{ profileMessage }}</div>
+      }
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+        <div class="form-field">
+          <label>Matricule CESCI</label>
+          <input type="text" [value]="auth.currentUser()?.matricule_cesci" disabled />
+        </div>
+        <div class="form-field">
+          <label>Email CESCI</label>
+          <input type="email" [value]="auth.currentUser()?.email" disabled />
+        </div>
+        <div class="form-field">
+          <label for="nom">Nom</label>
+          <input id="nom" type="text" formControlName="nom" />
+        </div>
+        <div class="form-field">
+          <label for="prenom">Prénom</label>
+          <input id="prenom" type="text" formControlName="prenom" />
+        </div>
+        <button type="submit" class="btn-primary">Enregistrer</button>
+      </form>
+    </div>
+
+    <div class="card profile-card">
+      <h3>Changer le mot de passe</h3>
+      @if (passwordMessage) {
+        <div class="alert alert-success">{{ passwordMessage }}</div>
+      }
+      @if (passwordError) {
+        <div class="alert alert-error">{{ passwordError }}</div>
+      }
+      <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+        <div class="form-field">
+          <label for="old_password">Mot de passe actuel</label>
+          <input id="old_password" type="password" formControlName="old_password" />
+        </div>
+        <div class="form-field">
+          <label for="new_password">Nouveau mot de passe</label>
+          <input id="new_password" type="password" formControlName="new_password" />
+        </div>
+        <button type="submit" class="btn-primary">Changer le mot de passe</button>
+      </form>
+    </div>
+  </div>
+</div>

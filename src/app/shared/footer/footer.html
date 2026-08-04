@@ -1,0 +1,35 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-logo-badge">
+        <img src="images/logo.jpeg" alt="CESCI" />
+      </div>
+      <p>Collectif des Étudiants Smart de Côte d'Ivoire — formation, insertion professionnelle et vie associative.</p>
+    </div>
+
+    <div>
+      <h4>Liens rapides</h4>
+      <ul>
+        <li><a routerLink="/presentation">Présentation</a></li>
+        <li><a routerLink="/organigramme">Organigramme</a></li>
+        <li><a routerLink="/formations">Formations certifiantes</a></li>
+        <li><a routerLink="/offres-professionnelles">Offres professionnelles</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      @if (contactInfo) {
+        <p>{{ contactInfo.adresse }}</p>
+        <p>{{ contactInfo.telephone }}</p>
+        <p>{{ contactInfo.email }}</p>
+      } @else {
+        <p>Informations de contact bientôt disponibles.</p>
+      }
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {{ year }} CESCI. Tous droits réservés.</p>
+  </div>
+</footer>

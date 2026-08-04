@@ -1,0 +1,81 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Gestion de l'organigramme</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Poste</th>
+          <th>Niveau</th>
+          <th>Direction</th>
+          <th>Titulaire actuel</th>
+          <th>Nouveau titulaire</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (poste of postes; track poste.id) {
+          <tr>
+            <td>{{ poste.titre }}</td>
+            <td>{{ poste.niveau === 1 ? 'Présidence' : 'Direction' }}</td>
+            <td>{{ poste.direction ? directionLabels[poste.direction] : '—' }}</td>
+            <td>{{ poste.titulaire_actuel?.nom_complet || 'Vacant' }}</td>
+            <td>
+              @if (titulaireForms[poste.id]) {
+                <form [formGroup]="titulaireForms[poste.id]" class="inline-form">
+                  <input type="text" formControlName="nom_affiche" placeholder="Nom du titulaire" />
+                  <input type="date" formControlName="date_debut" />
+                  <button type="button" class="btn-outline" (click)="assignTitulaire(poste)">Affecter</button>
+                </form>
+              }
+            </td>
+            <td class="actions">
+              <button (click)="removePoste(poste)">Supprimer</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="6">Aucun poste défini.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="card form-card">
+      <h3>Ajouter un poste</h3>
+      <form [formGroup]="posteForm" (ngSubmit)="addPoste()">
+        <div class="form-field">
+          <label for="titre">Titre du poste</label>
+          <input id="titre" type="text" formControlName="titre" />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="niveau">Niveau</label>
+            <select id="niveau" formControlName="niveau">
+              <option [ngValue]="1">Présidence</option>
+              <option [ngValue]="2">Direction</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="direction">Direction</label>
+            <select id="direction" formControlName="direction">
+              <option [ngValue]="null">Aucune</option>
+              @for (d of directions; track d) {
+                <option [value]="d">{{ directionLabels[d] }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="description_role">Description du rôle</label>
+          <textarea id="description_role" rows="3" formControlName="description_role"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="commissions_rattachees">Commissions rattachées</label>
+          <input id="commissions_rattachees" type="text" formControlName="commissions_rattachees" />
+        </div>
+        <button type="submit" class="btn-primary">Ajouter le poste</button>
+      </form>
+    </div>
+  </div>
+</div>

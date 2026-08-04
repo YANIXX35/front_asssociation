@@ -1,0 +1,73 @@
+.membership-card {
+  max-width: 420px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--color-dark);
+  color: var(--color-white);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.05);
+
+  .card-brand {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .card-badge {
+    background: var(--color-primary);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+  }
+}
+
+.card-body {
+  padding: 24px;
+
+  .card-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  .card-matricule {
+    font-family: monospace;
+    letter-spacing: 1px;
+    color: #ffd8b8;
+    margin: 0 0 4px;
+  }
+
+  .card-email {
+    opacity: 0.8;
+    margin: 0;
+  }
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.8rem;
+
+  .qr-placeholder {
+    width: 40px;
+    height: 40px;
+    background: var(--color-white);
+    color: var(--color-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+}

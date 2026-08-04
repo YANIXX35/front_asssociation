@@ -1,0 +1,44 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <div class="content-header">
+      <h2>Gestion des formations</h2>
+      <a routerLink="/bureau/formations/nouvelle" class="btn-primary">+ Ajouter une formation</a>
+    </div>
+
+    @if (loading) {
+      <p>Chargement...</p>
+    } @else {
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Direction</th>
+            <th>Niveau</th>
+            <th>Inscrits</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (formation of formations; track formation.id) {
+            <tr>
+              <td>{{ formation.titre }}</td>
+              <td>{{ formation.direction_organisatrice || '—' }}</td>
+              <td>{{ formation.niveau }}</td>
+              <td>{{ formation.nb_inscrits }}</td>
+              <td>{{ formation.actif ? 'Actif' : 'Inactif' }}</td>
+              <td class="actions">
+                <a [routerLink]="['/bureau/formations', formation.id, 'modifier']">Modifier</a>
+                <button (click)="remove(formation)">Supprimer</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="6">Aucune formation pour le moment.</td></tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>

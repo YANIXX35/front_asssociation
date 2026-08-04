@@ -1,0 +1,120 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Contenu du site</h2>
+
+    <div class="card form-card">
+      <h3>Présentation de l'association</h3>
+      @if (associationMessage) {
+        <div class="alert alert-success">{{ associationMessage }}</div>
+      }
+      <form [formGroup]="associationForm" (ngSubmit)="saveAssociation()">
+        <div class="form-field">
+          <label for="nom_complet">Nom complet</label>
+          <input id="nom_complet" type="text" formControlName="nom_complet" />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="date_creation">Date de création</label>
+            <input id="date_creation" type="date" formControlName="date_creation" />
+          </div>
+          <div class="form-field">
+            <label for="lieu_creation">Lieu de création</label>
+            <input id="lieu_creation" type="text" formControlName="lieu_creation" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="president_nom">Président en exercice</label>
+            <input id="president_nom" type="text" formControlName="president_nom" />
+          </div>
+          <div class="form-field">
+            <label for="president_devise">Devise du président</label>
+            <input id="president_devise" type="text" formControlName="president_devise" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="vision">Vision</label>
+          <textarea id="vision" rows="3" formControlName="vision"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="mission">Mission</label>
+          <textarea id="mission" rows="3" formControlName="mission"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="valeurs">Valeurs</label>
+          <textarea id="valeurs" rows="3" formControlName="valeurs"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="historique">Historique</label>
+          <textarea id="historique" rows="4" formControlName="historique"></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Enregistrer</button>
+      </form>
+    </div>
+
+    <div class="card form-card">
+      <h3>Coordonnées de contact</h3>
+      @if (contactMessage) {
+        <div class="alert alert-success">{{ contactMessage }}</div>
+      }
+      <form [formGroup]="contactForm" (ngSubmit)="saveContact()">
+        <div class="form-field">
+          <label for="adresse">Adresse</label>
+          <input id="adresse" type="text" formControlName="adresse" />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="telephone">Téléphone</label>
+            <input id="telephone" type="text" formControlName="telephone" />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="horaires">Horaires</label>
+          <input id="horaires" type="text" formControlName="horaires" />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="latitude">Latitude</label>
+            <input id="latitude" type="number" formControlName="latitude" />
+          </div>
+          <div class="form-field">
+            <label for="longitude">Longitude</label>
+            <input id="longitude" type="number" formControlName="longitude" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Enregistrer</button>
+      </form>
+    </div>
+
+    <div class="card form-card">
+      <h3>Partenaires</h3>
+      <ul class="simple-list">
+        @for (partner of partners; track partner.id) {
+          <li>
+            {{ partner.nom }}
+            <span class="badge">{{ partner.type === 'entreprise' ? 'Entreprise' : 'Université' }}</span>
+            <button (click)="removePartner(partner)">Supprimer</button>
+          </li>
+        } @empty {
+          <li>Aucun partenaire.</li>
+        }
+      </ul>
+      <form [formGroup]="partnerForm" (ngSubmit)="addPartner()" class="inline-form">
+        <input type="text" formControlName="nom" placeholder="Nom du partenaire" />
+        <select formControlName="type">
+          <option value="entreprise">Entreprise</option>
+          <option value="universite">Université</option>
+        </select>
+        <input type="text" formControlName="lien" placeholder="Lien (optionnel)" />
+        <input type="file" accept="image/*" (change)="onPartnerLogoSelected($event)" />
+        <button type="submit" class="btn-outline">Ajouter</button>
+      </form>
+    </div>
+  </div>
+</div>

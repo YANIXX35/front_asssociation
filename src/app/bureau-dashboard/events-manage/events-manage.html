@@ -1,0 +1,57 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Gestion Smart event</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Titre</th><th>Date</th><th>Lieu</th><th>Inscrits</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        @for (event of events; track event.id) {
+          <tr>
+            <td>{{ event.titre }}</td>
+            <td>{{ event.date | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ event.lieu }}</td>
+            <td>{{ event.nb_inscrits }}</td>
+            <td class="actions">
+              <button (click)="remove(event)">Supprimer</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5">Aucun événement.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="card form-card">
+      <h3>Ajouter un événement</h3>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-field">
+          <label for="titre">Titre</label>
+          <input id="titre" type="text" formControlName="titre" />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="date">Date et heure</label>
+            <input id="date" type="datetime-local" formControlName="date" />
+          </div>
+          <div class="form-field">
+            <label for="lieu">Lieu</label>
+            <input id="lieu" type="text" formControlName="lieu" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="description">Description</label>
+          <textarea id="description" rows="4" formControlName="description"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="affiche">Affiche</label>
+          <input id="affiche" type="file" accept="image/*" (change)="onImageSelected($event)" />
+        </div>
+        <button type="submit" class="btn-primary">Ajouter l'événement</button>
+      </form>
+    </div>
+  </div>
+</div>

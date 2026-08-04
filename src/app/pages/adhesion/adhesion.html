@@ -1,0 +1,87 @@
+<section class="inner-hero">
+  <div class="container">
+    <h1>Rejoindre le CESCI</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container adhesion-container">
+    <p class="adhesion-intro">
+      Remplissez ce formulaire pour candidater à l'adhésion au CESCI. Le bureau étudiera votre
+      candidature et vous communiquera vos identifiants (matricule + email) si elle est acceptée.
+    </p>
+
+    @if (success) {
+      <div class="alert alert-success">
+        Votre candidature a bien été envoyée. Le bureau vous contactera prochainement.
+      </div>
+    }
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="card adhesion-form">
+      <div class="form-field">
+        <label for="noms_prenoms">Noms & Prénoms</label>
+        <input id="noms_prenoms" type="text" formControlName="noms_prenoms" placeholder="Votre réponse" />
+      </div>
+
+      <div class="form-field">
+        <label for="whatsapp">Numéro WhatsApp</label>
+        <input id="whatsapp" type="tel" formControlName="whatsapp" placeholder="Votre réponse" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Adresse e-mail</label>
+        <input id="email" type="email" formControlName="email" placeholder="Votre réponse" />
+        @if (form.get('email')?.touched && form.get('email')?.invalid) {
+          <div class="error">Email valide requis.</div>
+        }
+      </div>
+
+      <div class="form-field">
+        <label>Niveau d'étude</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" formControlName="niveau_etude" value="baccalaureat" />
+            Baccalauréat
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="niveau_etude" value="bac1" />
+            BAC +1
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="niveau_etude" value="bac2" />
+            BAC +2
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="niveau_etude" value="bac3" />
+            BAC +3
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="niveau_etude" value="master1" />
+            Master 1
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="niveau_etude" value="master2" />
+            Master 2
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="niveau_etude" value="autre" />
+            Autre :
+            <input type="text" formControlName="niveau_etude_autre" class="inline-input" />
+          </label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="filiere_etablissement">Filière / Etablissement</label>
+        <input id="filiere_etablissement" type="text" formControlName="filiere_etablissement" placeholder="Votre réponse" />
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loading">
+        {{ loading ? 'Envoi...' : 'Envoyer ma candidature' }}
+      </button>
+    </form>
+  </div>
+</section>

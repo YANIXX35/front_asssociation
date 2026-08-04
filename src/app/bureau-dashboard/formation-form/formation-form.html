@@ -1,0 +1,143 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>{{ formationId ? 'Modifier la formation' : 'Ajouter une formation' }}</h2>
+
+    @if (successMessage) {
+      <div class="alert alert-success">{{ successMessage }}</div>
+    }
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+
+    <div class="card form-card">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-field">
+          <label for="titre">Titre</label>
+          <input id="titre" type="text" formControlName="titre" />
+        </div>
+
+        <div class="form-field">
+          <label for="description">Description</label>
+          <textarea id="description" rows="4" formControlName="description"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="direction_organisatrice">Direction organisatrice</label>
+            <select id="direction_organisatrice" formControlName="direction_organisatrice">
+              <option [ngValue]="null">Aucune</option>
+              @for (d of directions; track d) {
+                <option [value]="d">{{ directionLabels[d] }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="niveau">Niveau</label>
+            <select id="niveau" formControlName="niveau">
+              <option value="debutant">Débutant</option>
+              <option value="intermediaire">Intermédiaire</option>
+              <option value="avance">Avancé</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="duree_heures">Durée (heures)</label>
+            <input id="duree_heures" type="number" formControlName="duree_heures" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="type_attestation">Type d'attestation</label>
+            <input id="type_attestation" type="text" formControlName="type_attestation" placeholder="Ex: Certificat de participation" />
+          </div>
+          <div class="form-field">
+            <label for="places_disponibles">Places disponibles (0 = illimité)</label>
+            <input id="places_disponibles" type="number" formControlName="places_disponibles" />
+          </div>
+          <div class="form-field checkbox-field">
+            <label>
+              <input type="checkbox" formControlName="actif" /> Formation active (visible)
+            </label>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="image">Image de la formation</label>
+          <input id="image" type="file" accept="image/*" (change)="onImageSelected($event)" />
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="loading">
+          {{ loading ? 'Enregistrement...' : 'Enregistrer la formation' }}
+        </button>
+      </form>
+    </div>
+
+    @if (formationId) {
+      <div class="card form-card">
+        <h3>Modules / Leçons</h3>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Titre</th><th>Type</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            @for (lesson of lessons; track lesson.id) {
+              <tr>
+                <td>{{ lesson.titre }}</td>
+                <td>{{ lesson.type }}</td>
+                <td class="actions">
+                  <button (click)="removeLesson(lesson)">Supprimer</button>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="3">Aucun module pour le moment.</td></tr>
+            }
+          </tbody>
+        </table>
+
+        <h4>Ajouter un module</h4>
+        <form [formGroup]="lessonForm" (ngSubmit)="addLesson()" class="lesson-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="lesson-titre">Titre</label>
+              <input id="lesson-titre" type="text" formControlName="titre" />
+            </div>
+            <div class="form-field">
+              <label for="lesson-type">Type</label>
+              <select id="lesson-type" formControlName="type">
+                <option value="video">Vidéo</option>
+                <option value="pdf">PDF</option>
+                <option value="texte">Texte</option>
+              </select>
+            </div>
+          </div>
+
+          @if (lessonForm.get('type')?.value === 'video') {
+            <div class="form-field">
+              <label for="video_url">URL de la vidéo (YouTube, Vimeo...)</label>
+              <input id="video_url" type="text" formControlName="video_url" />
+            </div>
+          }
+          @if (lessonForm.get('type')?.value === 'pdf') {
+            <div class="form-field">
+              <label for="lesson-file">Fichier PDF</label>
+              <input id="lesson-file" type="file" accept="application/pdf" (change)="onLessonFileSelected($event)" />
+            </div>
+          }
+          @if (lessonForm.get('type')?.value === 'texte') {
+            <div class="form-field">
+              <label for="contenu_texte">Contenu</label>
+              <textarea id="contenu_texte" rows="4" formControlName="contenu_texte"></textarea>
+            </div>
+          }
+
+          <button type="submit" class="btn-outline">Ajouter le module</button>
+        </form>
+      </div>
+    }
+  </div>
+</div>

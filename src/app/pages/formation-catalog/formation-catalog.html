@@ -1,0 +1,52 @@
+<section class="inner-hero">
+  <div class="container">
+    <h1>Formations certifiantes — Smart Academy</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filters">
+      <input
+        type="text"
+        placeholder="Rechercher une formation..."
+        [(ngModel)]="search"
+        (keyup.enter)="load()"
+      />
+      <select [(ngModel)]="direction" (ngModelChange)="load()">
+        <option value="">Toutes les directions</option>
+        @for (d of directions; track d) {
+          <option [value]="d">{{ directionLabels[d] }}</option>
+        }
+      </select>
+      <select [(ngModel)]="niveau" (ngModelChange)="load()">
+        <option value="">Tous les niveaux</option>
+        <option value="debutant">Débutant</option>
+        <option value="intermediaire">Intermédiaire</option>
+        <option value="avance">Avancé</option>
+      </select>
+      <button class="btn-outline" (click)="load()">Rechercher</button>
+    </div>
+
+    @if (loading) {
+      <p>Chargement...</p>
+    } @else if (!formations.length) {
+      <p>Aucune formation ne correspond à votre recherche.</p>
+    } @else {
+      <div class="grid grid-3">
+        @for (formation of formations; track formation.id) {
+          <div class="card formation-card">
+            <img [src]="formation.image || 'images/p1.png'" alt="{{ formation.titre }}" />
+            <div class="formation-card-body">
+              <span class="badge">{{ formation.niveau }}</span>
+              <h3>{{ formation.titre }}</h3>
+              <p>{{ formation.description | slice: 0 : 90 }}...</p>
+              <p class="meta">{{ formation.nb_lecons }} modules · {{ formation.duree_heures }}h</p>
+              <a [routerLink]="['/formations', formation.id]" class="btn-outline">Voir la formation</a>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

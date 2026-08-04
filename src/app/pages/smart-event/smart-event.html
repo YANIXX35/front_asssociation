@@ -1,0 +1,25 @@
+<section class="inner-hero">
+  <div class="container">
+    <h1>Smart event</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-3">
+      @for (event of events; track event.id) {
+        <div class="card event-card">
+          <img [src]="event.affiche || 'images/p2.png'" [alt]="event.titre" />
+          <div class="event-card-body">
+            <p class="event-date">{{ event.date | date: 'dd MMMM yyyy, HH:mm' }}</p>
+            <h3>{{ event.titre }}</h3>
+            <p class="lieu">{{ event.lieu }}</p>
+            <a [routerLink]="['/smart-event', event.id]" class="btn-outline">Voir l'événement</a>
+          </div>
+        </div>
+      } @empty {
+        <p>Aucun événement à venir pour le moment.</p>
+      }
+    </div>
+  </div>
+</section>

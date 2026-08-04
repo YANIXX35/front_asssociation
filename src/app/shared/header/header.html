@@ -1,0 +1,41 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a routerLink="/" class="logo" (click)="closeMenu()">
+      <img src="images/logo.jpeg" alt="CESCI" class="logo-img" />
+    </a>
+
+    <button class="menu-toggle" type="button" (click)="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" [class.open]="menuOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Accueil</a>
+      <a routerLink="/presentation" routerLinkActive="active" (click)="closeMenu()">Présentation</a>
+      <a routerLink="/organigramme" routerLinkActive="active" (click)="closeMenu()">Organigramme</a>
+
+      <div class="nav-dropdown" [class.open]="servicesOpen">
+        <button type="button" class="nav-dropdown-toggle" (click)="toggleServices()">
+          Nos activités <span class="caret"></span>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a routerLink="/formations" routerLinkActive="active" (click)="closeMenu()">Formations certifiantes</a>
+          <a routerLink="/smart-gamme" routerLinkActive="active" (click)="closeMenu()">Smart gamme</a>
+          <a routerLink="/smart-event" routerLinkActive="active" (click)="closeMenu()">Smart event</a>
+          <a routerLink="/offres-professionnelles" routerLinkActive="active" (click)="closeMenu()">Offres professionnelles</a>
+        </div>
+      </div>
+
+      @if (!auth.isLoggedIn()) {
+        <a routerLink="/rejoindre" routerLinkActive="active" (click)="closeMenu()">Rejoindre le CESCI</a>
+        <a routerLink="/connexion" class="nav-cta primary" (click)="closeMenu()">Connexion</a>
+      } @else {
+        @if (auth.isBureau()) {
+          <a routerLink="/bureau" routerLinkActive="active" (click)="closeMenu()">Espace bureau</a>
+        } @else {
+          <a routerLink="/tableau-de-bord" routerLinkActive="active" (click)="closeMenu()">Mon espace</a>
+        }
+        <button class="nav-cta" type="button" (click)="logout()">Déconnexion</button>
+      }
+    </nav>
+  </div>
+</header>

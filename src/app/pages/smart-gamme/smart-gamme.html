@@ -1,0 +1,39 @@
+<section class="inner-hero">
+  <div class="container">
+    <h1>Smart gamme</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    @if (message) {
+      <div class="alert alert-success">{{ message }}</div>
+    }
+
+    <div class="grid grid-3">
+      @for (product of products; track product.id) {
+        <div class="card product-card">
+          <img [src]="product.image || 'images/p1.png'" [alt]="product.nom" />
+          <div class="product-card-body">
+            <span class="badge">{{ product.type === 'avantage' ? 'Avantage' : 'Produit' }}</span>
+            <h3>{{ product.nom }}</h3>
+            <p>{{ product.description }}</p>
+            @if (product.prix) {
+              <p class="price">{{ product.prix }} €</p>
+            }
+            <div class="order-actions">
+              <button class="btn-outline" [disabled]="orderingId === product.id" (click)="demander(product, 'retrait')">
+                Retrait sur place
+              </button>
+              <button class="btn-outline" [disabled]="orderingId === product.id" (click)="demander(product, 'livraison')">
+                Livraison
+              </button>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <p>Le catalogue Smart gamme sera bientôt disponible.</p>
+      }
+    </div>
+  </div>
+</section>

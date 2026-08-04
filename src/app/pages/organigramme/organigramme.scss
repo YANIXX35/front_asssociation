@@ -1,0 +1,40 @@
+.poste-card {
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-primary);
+  }
+
+  .titulaire {
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-top: 8px;
+  }
+}
+
+.poste-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 35, 64, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.poste-modal {
+  max-width: 480px;
+  width: 100%;
+  padding: 30px;
+
+  .titulaire {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+}

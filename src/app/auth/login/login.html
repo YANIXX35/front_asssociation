@@ -1,0 +1,44 @@
+<section class="auth-section">
+  <div class="auth-card card">
+    <h2>Connexion membre CESCI</h2>
+    <p class="auth-hint">Connectez-vous avec votre matricule et votre email CESCI.</p>
+
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-field">
+        <label for="matricule_cesci">Matricule CESCI</label>
+        <input id="matricule_cesci" type="text" formControlName="matricule_cesci" placeholder="CESCI-XXXX" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email CESCI</label>
+        <input id="email" type="email" formControlName="email" placeholder="vous@cesci.local" />
+        @if (form.get('email')?.touched && form.get('email')?.invalid) {
+          <div class="error">Email valide requis.</div>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••••" />
+        @if (form.get('password')?.touched && form.get('password')?.invalid) {
+          <div class="error">Mot de passe requis.</div>
+        }
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loading">
+        {{ loading ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+
+    <p class="auth-links">
+      <a routerLink="/mot-de-passe-oublie">Mot de passe oublié ?</a>
+    </p>
+    <p class="auth-hint">
+      Pas encore de compte ? Les comptes sont créés par l'administration du CESCI lors de votre adhésion.
+    </p>
+  </div>
+</section>

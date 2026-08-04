@@ -1,0 +1,23 @@
+<div class="dashboard-layout">
+  <app-dashboard-nav></app-dashboard-nav>
+
+  <div class="dashboard-content">
+    <h2>Ma carte membre</h2>
+
+    <div class="membership-card">
+      <div class="card-header">
+        <span class="card-brand">CESCI</span>
+        <span class="card-badge">{{ auth.currentUser()?.statut_adhesion }}</span>
+      </div>
+      <div class="card-body">
+        <p class="card-name">{{ auth.currentUser()?.prenom }} {{ auth.currentUser()?.nom }}</p>
+        <p class="card-matricule">{{ auth.currentUser()?.matricule_cesci }}</p>
+        <p class="card-email">{{ auth.currentUser()?.email }}</p>
+      </div>
+      <div class="card-footer">
+        <div class="qr-placeholder">QR</div>
+        <span>Carte membre digitale — CESCI</span>
+      </div>
+    </div>
+  </div>
+</div>

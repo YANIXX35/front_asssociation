@@ -1,0 +1,38 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+
+  input,
+  select {
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: inherit;
+  }
+
+  input {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+.formation-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.formation-card-body {
+  padding: 18px;
+
+  h3 {
+    margin: 10px 0;
+  }
+
+  .meta {
+    color: #6b6b6b;
+    font-size: 0.85rem;
+  }
+}

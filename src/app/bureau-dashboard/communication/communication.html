@@ -1,0 +1,47 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Communication interne</h2>
+
+    <ul class="simple-list">
+      @for (announcement of announcements; track announcement.id) {
+        <li>
+          <div>
+            <strong>{{ announcement.titre }}</strong>
+            <span class="badge">{{ announcement.direction_cible ? directionLabels[announcement.direction_cible] : 'Tout le bureau' }}</span>
+            <p>{{ announcement.contenu }}</p>
+            <small>{{ announcement.date_publication | date: 'dd/MM/yyyy HH:mm' }} — {{ announcement.auteur_prenom }} {{ announcement.auteur_nom }}</small>
+          </div>
+          <button (click)="remove(announcement)">Supprimer</button>
+        </li>
+      } @empty {
+        <li>Aucune annonce pour le moment.</li>
+      }
+    </ul>
+
+    <div class="card form-card">
+      <h3>Publier une annonce</h3>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-field">
+          <label for="titre">Titre</label>
+          <input id="titre" type="text" formControlName="titre" />
+        </div>
+        <div class="form-field">
+          <label for="contenu">Contenu</label>
+          <textarea id="contenu" rows="4" formControlName="contenu"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="direction_cible">Direction ciblée (vide = tout le bureau)</label>
+          <select id="direction_cible" formControlName="direction_cible">
+            <option [ngValue]="null">Tout le bureau</option>
+            @for (d of directions; track d) {
+              <option [value]="d">{{ directionLabels[d] }}</option>
+            }
+          </select>
+        </div>
+        <button type="submit" class="btn-primary">Publier</button>
+      </form>
+    </div>
+  </div>
+</div>

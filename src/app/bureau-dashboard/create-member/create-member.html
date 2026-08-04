@@ -1,0 +1,66 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Créer un compte membre</h2>
+
+    @if (result) {
+      <div class="alert alert-success">
+        Compte créé pour {{ result.prenom }} {{ result.nom }} (matricule {{ result.matricule_cesci }}).<br />
+        Mot de passe temporaire à communiquer : <strong>{{ result.temp_password }}</strong>
+      </div>
+    }
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+
+    <div class="card form-card">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nom">Nom</label>
+            <input id="nom" type="text" formControlName="nom" />
+          </div>
+          <div class="form-field">
+            <label for="prenom">Prénom</label>
+            <input id="prenom" type="text" formControlName="prenom" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="matricule_cesci">Matricule CESCI</label>
+            <input id="matricule_cesci" type="text" formControlName="matricule_cesci" placeholder="CESCI-XXXX" />
+          </div>
+          <div class="form-field">
+            <label for="email">Email CESCI</label>
+            <input id="email" type="email" formControlName="email" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="role">Rôle</label>
+            <select id="role" formControlName="role">
+              <option value="etudiant_membre">Étudiant membre</option>
+              <option value="membre_bureau">Membre du bureau</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="direction">Direction (si membre du bureau)</label>
+            <select id="direction" formControlName="direction">
+              <option [ngValue]="null">Aucune</option>
+              @for (d of directions; track d) {
+                <option [value]="d">{{ directionLabels[d] }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="loading">
+          {{ loading ? 'Création...' : 'Créer le compte' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

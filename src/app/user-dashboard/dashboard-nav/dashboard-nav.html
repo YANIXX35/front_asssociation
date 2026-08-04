@@ -1,0 +1,12 @@
+<aside class="dashboard-nav">
+  <p class="welcome">Bonjour, {{ auth.currentUser()?.prenom }}</p>
+  <nav>
+    <a routerLink="/tableau-de-bord/carte-membre" routerLinkActive="active">Ma carte membre</a>
+    <a routerLink="/tableau-de-bord/mes-formations" routerLinkActive="active">Mes formations</a>
+    <a routerLink="/tableau-de-bord/offres-pro" routerLinkActive="active">Offres pro</a>
+    <a routerLink="/tableau-de-bord/smart-event" routerLinkActive="active">Smart event</a>
+    <a routerLink="/tableau-de-bord/smart-gamme" routerLinkActive="active">Smart gamme</a>
+    <a routerLink="/tableau-de-bord/mentorat" routerLinkActive="active">Mentorat</a>
+    <a routerLink="/tableau-de-bord/profil" routerLinkActive="active">Mon profil</a>
+  </nav>
+</aside>

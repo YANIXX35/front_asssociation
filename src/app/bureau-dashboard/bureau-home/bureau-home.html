@@ -1,0 +1,26 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Vue d'ensemble</h2>
+
+    <div class="grid grid-4 stats-grid">
+      <div class="card stat-card">
+        <span class="stat-value">{{ totalMembers }}</span>
+        <span class="stat-label">Membres inscrits</span>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-value">{{ totalFormations }}</span>
+        <span class="stat-label">Formations actives</span>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-value">{{ totalEvents }}</span>
+        <span class="stat-label">Événements</span>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-value">{{ pendingApplications }}</span>
+        <span class="stat-label">Candidatures en attente</span>
+      </div>
+    </div>
+  </div>
+</div>

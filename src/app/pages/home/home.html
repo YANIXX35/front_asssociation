@@ -1,0 +1,88 @@
+<!-- Hero -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Le Collectif des Étudiants Smart de Côte d'Ivoire</h1>
+      <p>Formation, insertion professionnelle, événements et vie associative : rejoignez une communauté d'étudiants engagés.</p>
+      <a routerLink="/formations" class="btn-primary">Découvrir nos formations</a>
+    </div>
+  </div>
+</section>
+
+<!-- Présentation (résumé) -->
+<section class="section">
+  <div class="container about-summary">
+    <div>
+      <h2>Qui sommes-nous ?</h2>
+      @if (info) {
+        <p>{{ info.mission || info.vision }}</p>
+      } @else {
+        <p>
+          Le CESCI accompagne les étudiants ivoiriens à travers des formations certifiantes,
+          des opportunités professionnelles et un réseau associatif dynamique.
+        </p>
+      }
+      <a routerLink="/presentation" class="btn-outline">En savoir plus</a>
+    </div>
+    <div class="about-placeholder-home">CESCI</div>
+  </div>
+</section>
+
+<!-- Formations en avant -->
+@if (featuredFormations.length) {
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos formations certifiantes</h2>
+        <p>Un aperçu de nos formations Smart Academy</p>
+      </div>
+      <div class="grid grid-3">
+        @for (formation of featuredFormations; track formation.id) {
+          <div class="card formation-card">
+            <img [src]="formation.image || 'images/p1.png'" alt="{{ formation.titre }}" />
+            <div class="formation-card-body">
+              <span class="badge">{{ formation.niveau }}</span>
+              <h3>{{ formation.titre }}</h3>
+              <p>{{ formation.description | slice: 0 : 90 }}...</p>
+              <a [routerLink]="['/formations', formation.id]" class="btn-outline">Voir la formation</a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+}
+
+<!-- Événements à venir -->
+@if (upcomingEvents.length) {
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Smart event — prochains événements</h2>
+      </div>
+      <div class="grid grid-3">
+        @for (event of upcomingEvents; track event.id) {
+          <div class="card event-card">
+            <img [src]="event.affiche || 'images/p2.png'" alt="{{ event.titre }}" />
+            <div class="event-card-body">
+              <p class="event-date">{{ event.date | date: 'dd MMMM yyyy' }}</p>
+              <h3>{{ event.titre }}</h3>
+              <a [routerLink]="['/smart-event', event.id]" class="btn-outline">Voir l'événement</a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+}
+
+<!-- CTA final -->
+<section class="section cta-section">
+  <div class="container text-center">
+    <h2>Vous êtes membre du CESCI ?</h2>
+    <div class="cta-actions">
+      <a routerLink="/connexion" class="btn-primary">Accéder à mon espace</a>
+      <a routerLink="/rejoindre" class="btn-outline">Pas encore membre ? Rejoignez-nous</a>
+    </div>
+  </div>
+</section>

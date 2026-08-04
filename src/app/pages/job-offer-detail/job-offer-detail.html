@@ -1,0 +1,36 @@
+@if (offer) {
+  <section class="inner-hero">
+    <div class="container">
+      <h1>{{ offer.titre }}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container formation-detail-grid">
+      <div>
+        <p>{{ offer.description }}</p>
+      </div>
+
+      <aside class="formation-sidebar card">
+        <p><strong>Entreprise :</strong> {{ offer.entreprise }}</p>
+        <p><strong>Type :</strong> {{ offer.type_contrat }}</p>
+        @if (offer.date_limite) {
+          <p><strong>Date limite :</strong> {{ offer.date_limite | date: 'dd/MM/yyyy' }}</p>
+        }
+
+        @if (errorMessage) {
+          <div class="alert alert-error">{{ errorMessage }}</div>
+        }
+        @if (applied) {
+          <div class="alert alert-success">Candidature envoyée !</div>
+        }
+
+        <button class="btn-primary" (click)="apply()" [disabled]="applying || applied">
+          {{ applied ? 'Déjà postulé' : (applying ? 'Envoi...' : 'Postuler') }}
+        </button>
+      </aside>
+    </div>
+  </section>
+} @else {
+  <p class="text-center">Chargement...</p>
+}

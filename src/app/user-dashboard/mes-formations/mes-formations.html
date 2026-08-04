@@ -1,0 +1,43 @@
+<div class="dashboard-layout">
+  <app-dashboard-nav></app-dashboard-nav>
+
+  <div class="dashboard-content">
+    <h2>Mes formations</h2>
+
+    @if (loading) {
+      <p>Chargement...</p>
+    } @else if (!enrollments.length) {
+      <p>
+        Vous n'êtes inscrit à aucune formation pour le moment.
+        <a routerLink="/formations">Parcourir le catalogue</a>
+      </p>
+    } @else {
+      <div class="grid grid-2">
+        @for (enrollment of enrollments; track enrollment.id) {
+          <div class="card enrollment-card">
+            <img [src]="enrollment.formation_detail.image || 'images/p1.png'" [alt]="enrollment.formation_detail.titre" />
+            <div class="enrollment-body">
+              <h3>{{ enrollment.formation_detail.titre }}</h3>
+              <div class="progress-bar">
+                <span [style.width.%]="enrollment.progression_pct"></span>
+              </div>
+              <p class="meta">{{ enrollment.progression_pct }}% complété</p>
+              <div class="enrollment-actions">
+                <a [routerLink]="['/formations', enrollment.formation]" class="btn-outline">Continuer</a>
+                @if (enrollment.progression_pct === 100) {
+                  <button
+                    class="btn-primary"
+                    [disabled]="downloadingId === enrollment.formation"
+                    (click)="downloadAttestation(enrollment)"
+                  >
+                    {{ downloadingId === enrollment.formation ? 'Génération...' : 'Attestation' }}
+                  </button>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

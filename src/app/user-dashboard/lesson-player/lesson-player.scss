@@ -1,0 +1,13 @@
+.lesson-video,
+.lesson-pdf {
+  width: 100%;
+  height: 480px;
+  border: none;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+
+.lesson-text {
+  padding: 24px;
+  margin-bottom: 20px;
+}

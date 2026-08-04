@@ -1,0 +1,30 @@
+.enrollment-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.enrollment-body {
+  padding: 16px;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .meta {
+    color: #6b6b6b;
+    font-size: 0.85rem;
+    margin: 8px 0 14px;
+  }
+}
+
+.enrollment-actions {
+  display: flex;
+  gap: 10px;
+
+  a,
+  button {
+    flex: 1;
+    font-size: 0.85rem;
+  }
+}

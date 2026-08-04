@@ -1,0 +1,75 @@
+<div class="dashboard-layout">
+  <app-bureau-nav></app-bureau-nav>
+
+  <div class="dashboard-content">
+    <h2>Offres professionnelles</h2>
+
+    @for (offer of offers; track offer.id) {
+      <div class="card form-card">
+        <div class="content-header">
+          <h3>{{ offer.titre }} — {{ offer.entreprise }}</h3>
+          <button (click)="remove(offer)">Supprimer</button>
+        </div>
+        <p>{{ offer.type_contrat }} — date limite : {{ offer.date_limite || '—' }}</p>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Candidat</th><th>Statut</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            @for (app of applicationsFor(offer.id); track app.id) {
+              <tr>
+                <td>{{ app.user_prenom }} {{ app.user_nom }} ({{ app.user_matricule }})</td>
+                <td>{{ app.statut }}</td>
+                <td class="actions">
+                  <button (click)="updateStatus(app, 'vue')">Vue</button>
+                  <button (click)="updateStatus(app, 'retenue')">Retenir</button>
+                  <button (click)="updateStatus(app, 'refusee')">Refuser</button>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="3">Aucune candidature.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @empty {
+      <p>Aucune offre publiée.</p>
+    }
+
+    <div class="card form-card">
+      <h3>Publier une offre</h3>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="titre">Titre</label>
+            <input id="titre" type="text" formControlName="titre" />
+          </div>
+          <div class="form-field">
+            <label for="entreprise">Entreprise</label>
+            <input id="entreprise" type="text" formControlName="entreprise" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="type_contrat">Type</label>
+            <select id="type_contrat" formControlName="type_contrat">
+              <option value="stage">Stage</option>
+              <option value="emploi">Emploi</option>
+              <option value="formation">Formation spécialisée</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="date_limite">Date limite</label>
+            <input id="date_limite" type="date" formControlName="date_limite" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="description">Description</label>
+          <textarea id="description" rows="4" formControlName="description"></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Publier l'offre</button>
+      </form>
+    </div>
+  </div>
+</div>

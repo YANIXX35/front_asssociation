@@ -1,0 +1,55 @@
+<section class="inner-hero">
+  <div class="container">
+    <h1>Organigramme du bureau</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Présidence</h2>
+    </div>
+    <div class="grid grid-3">
+      @for (poste of presidence; track poste.id) {
+        <div class="card poste-card" (click)="select(poste)">
+          <h3>{{ poste.titre }}</h3>
+          <p class="titulaire">{{ poste.titulaire_actuel?.nom_complet || 'Poste vacant' }}</p>
+        </div>
+      } @empty {
+        <p>L'organigramme sera bientôt affiché ici.</p>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section-light">
+  <div class="container">
+    <div class="section-title">
+      <h2>Les directions</h2>
+    </div>
+    <div class="grid grid-4">
+      @for (poste of directions; track poste.id) {
+        <div class="card poste-card" (click)="select(poste)">
+          <h3>{{ poste.titre }}</h3>
+          <p class="titulaire">{{ poste.titulaire_actuel?.nom_complet || 'Poste vacant' }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+@if (selected) {
+  <div class="poste-modal-backdrop" (click)="select(selected)">
+    <div class="poste-modal card" (click)="$event.stopPropagation()">
+      <h3>{{ selected.titre }}</h3>
+      <p class="titulaire">{{ selected.titulaire_actuel?.nom_complet || 'Poste vacant' }}</p>
+      @if (selected.description_role) {
+        <p>{{ selected.description_role }}</p>
+      }
+      @if (selected.commissions_rattachees) {
+        <p><strong>Commissions rattachées :</strong> {{ selected.commissions_rattachees }}</p>
+      }
+      <button class="btn-outline" (click)="select(selected)">Fermer</button>
+    </div>
+  </div>
+}

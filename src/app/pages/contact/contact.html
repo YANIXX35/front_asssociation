@@ -1,0 +1,25 @@
+<section class="inner-hero">
+  <div class="container">
+    <h1>Contact & Localisation</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-info-card">
+      <h2>Nos coordonnées</h2>
+      @if (contactInfo) {
+        <p><i class="fa fa-map-marker"></i> {{ contactInfo.adresse }}</p>
+        <p><i class="fa fa-phone"></i> {{ contactInfo.telephone }}</p>
+        <p><i class="fa fa-envelope"></i> {{ contactInfo.email }}</p>
+        <p><i class="fa fa-clock-o"></i> {{ contactInfo.horaires }}</p>
+      } @else {
+        <p>Informations de contact bientôt disponibles.</p>
+      }
+
+      @if (mapUrl) {
+        <iframe class="contact-map" [src]="mapUrl" title="Localisation"></iframe>
+      }
+    </div>
+  </div>
+</section>

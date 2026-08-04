@@ -1,0 +1,23 @@
+<div class="dashboard-layout">
+  <app-dashboard-nav></app-dashboard-nav>
+
+  <div class="dashboard-content">
+    <h2>Mentorat</h2>
+
+    @if (loading) {
+      <p>Chargement...</p>
+    } @else if (mentor) {
+      <div class="card mentor-card">
+        <h3>{{ mentor.mentor_nom }}</h3>
+        @if (mentor.mentor_contact) {
+          <p><strong>Contact :</strong> {{ mentor.mentor_contact }}</p>
+        }
+        @if (mentor.notes) {
+          <p>{{ mentor.notes }}</p>
+        }
+      </div>
+    } @else {
+      <p>Aucun mentor ne vous a encore été attribué.</p>
+    }
+  </div>
+</div>

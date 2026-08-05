@@ -16,18 +16,18 @@ export class ResetPassword implements OnInit {
   private router = inject(Router);
 
   form = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    otp_code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
     new_password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
-  uid = '';
-  token = '';
   loading = false;
   message = '';
   errorMessage = '';
 
   ngOnInit(): void {
-    this.uid = this.route.snapshot.queryParamMap.get('uid') ?? '';
-    this.token = this.route.snapshot.queryParamMap.get('token') ?? '';
+    const emailParam = this.route.snapshot.queryParamMap.get('email') ?? '';
+    this.form.patchValue({ email: emailParam });
   }
 
   submit(): void {
@@ -37,15 +37,16 @@ export class ResetPassword implements OnInit {
     }
     this.loading = true;
     this.errorMessage = '';
-    this.auth.resetPassword(this.uid, this.token, this.form.getRawValue().new_password!).subscribe({
+    const val = this.form.getRawValue();
+    this.auth.resetPassword(val.email!, val.otp_code!, val.new_password!).subscribe({
       next: (res) => {
         this.loading = false;
         this.message = res.detail;
         setTimeout(() => this.router.navigate(['/connexion']), 1500);
       },
-      error: () => {
+      error: (err) => {
         this.loading = false;
-        this.errorMessage = 'Lien invalide ou expiré.';
+        this.errorMessage = err.error?.detail || 'Le code OTP ou l\'email est invalide ou expiré.';
       },
     });
   }

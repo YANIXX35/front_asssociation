@@ -2,22 +2,42 @@
   <app-bureau-nav></app-bureau-nav>
 
   <div class="dashboard-content">
-    <h2>Vue d'ensemble</h2>
+    <div class="page-header">
+      <div>
+        <h2>Vue d'ensemble</h2>
+        <p class="page-subtitle">Suivez l'activité du CESCI en un coup d'œil.</p>
+      </div>
+    </div>
 
     <div class="grid grid-4 stats-grid">
       <div class="card stat-card">
+        <div class="stat-top">
+          <span class="stat-icon icon-green"><i class="fa fa-users"></i></span>
+          <i class="fa fa-arrow-up trend-icon"></i>
+        </div>
         <span class="stat-value">{{ totalMembers }}</span>
         <span class="stat-label">Membres inscrits</span>
       </div>
       <div class="card stat-card">
+        <div class="stat-top">
+          <span class="stat-icon icon-orange"><i class="fa fa-graduation-cap"></i></span>
+          <i class="fa fa-arrow-up trend-icon"></i>
+        </div>
         <span class="stat-value">{{ totalFormations }}</span>
         <span class="stat-label">Formations actives</span>
       </div>
       <div class="card stat-card">
+        <div class="stat-top">
+          <span class="stat-icon icon-blue"><i class="fa fa-calendar"></i></span>
+          <i class="fa fa-arrow-up trend-icon"></i>
+        </div>
         <span class="stat-value">{{ totalEvents }}</span>
         <span class="stat-label">Événements</span>
       </div>
       <div class="card stat-card">
+        <div class="stat-top">
+          <span class="stat-icon icon-navy"><i class="fa fa-user-plus"></i></span>
+        </div>
         <span class="stat-value">{{ pendingApplications }}</span>
         <span class="stat-label">Candidatures en attente</span>
       </div>

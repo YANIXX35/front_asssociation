@@ -1,21 +1,69 @@
 <aside class="dashboard-nav">
-  <p class="welcome">Espace bureau</p>
+  <div class="sidebar-logo">
+    <img src="images/logo.jpeg" alt="CESCI" />
+    <span>CESCI</span>
+  </div>
+
+  <div class="sidebar-profile">
+    <span class="avatar">{{ (auth.currentUser()?.prenom?.[0] || '') + (auth.currentUser()?.nom?.[0] || '') }}</span>
+    <div class="profile-info">
+      <p class="profile-name">{{ auth.currentUser()?.prenom }} {{ auth.currentUser()?.nom }}</p>
+      <p class="profile-email">{{ auth.currentUser()?.email }}</p>
+    </div>
+  </div>
+
   <nav>
-    <a routerLink="/bureau" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Vue d'ensemble</a>
-    <a routerLink="/bureau/organigramme" routerLinkActive="active">Organigramme</a>
-    <a routerLink="/bureau/contenu" routerLinkActive="active">Contenu du site</a>
-    <a routerLink="/bureau/membres" routerLinkActive="active">Membres CESCI</a>
-    <a routerLink="/bureau/adhesions" routerLinkActive="active">Candidatures d'adhésion</a>
-    <a routerLink="/bureau/creer-membre" routerLinkActive="active">Créer un membre</a>
-    <a routerLink="/bureau/formations" routerLinkActive="active">Formations</a>
-    <a routerLink="/bureau/smart-event" routerLinkActive="active">Smart event</a>
-    <a routerLink="/bureau/offres-professionnelles" routerLinkActive="active">Offres pro</a>
-    <a routerLink="/bureau/smart-gamme" routerLinkActive="active">Smart gamme</a>
-    <a routerLink="/bureau/mentorat" routerLinkActive="active">Mentorat</a>
-    <a routerLink="/bureau/communication" routerLinkActive="active">Communication</a>
+    <p class="menu-label">Menu</p>
+    <a routerLink="/bureau" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fa fa-th-large"></i> Vue d'ensemble
+    </a>
+    <a routerLink="/bureau/membres" routerLinkActive="active">
+      <i class="fa fa-users"></i> Membres CESCI
+    </a>
+    <a routerLink="/bureau/adhesions" routerLinkActive="active">
+      <i class="fa fa-user-plus"></i> Candidatures d'adhésion
+    </a>
+    <a routerLink="/bureau/creer-membre" routerLinkActive="active">
+      <i class="fa fa-id-card"></i> Créer un membre
+    </a>
+    <a routerLink="/bureau/organigramme" routerLinkActive="active">
+      <i class="fa fa-sitemap"></i> Organigramme
+    </a>
+
+    <p class="menu-label">Gestion</p>
+    <a routerLink="/bureau/formations" routerLinkActive="active">
+      <i class="fa fa-graduation-cap"></i> Formations
+    </a>
+    <a routerLink="/bureau/smart-event" routerLinkActive="active">
+      <i class="fa fa-calendar"></i> Smart event
+    </a>
+    <a routerLink="/bureau/offres-professionnelles" routerLinkActive="active">
+      <i class="fa fa-briefcase"></i> Offres pro
+    </a>
+    <a routerLink="/bureau/smart-gamme" routerLinkActive="active">
+      <i class="fa fa-shopping-bag"></i> Smart gamme
+    </a>
+    <a routerLink="/bureau/mentorat" routerLinkActive="active">
+      <i class="fa fa-user-circle"></i> Mentorat
+    </a>
+    <a routerLink="/bureau/communication" routerLinkActive="active">
+      <i class="fa fa-bullhorn"></i> Communication
+    </a>
     @if (auth.currentUser()?.direction === 'finances') {
-      <a routerLink="/bureau/finances" routerLinkActive="active">Finances</a>
+      <a routerLink="/bureau/finances" routerLinkActive="active">
+        <i class="fa fa-money"></i> Finances
+      </a>
     }
-    <a routerLink="/tableau-de-bord/profil" routerLinkActive="active">Mon profil</a>
+    <a routerLink="/bureau/contenu" routerLinkActive="active">
+      <i class="fa fa-edit"></i> Contenu du site
+    </a>
+
+    <p class="menu-label">Général</p>
+    <a routerLink="/tableau-de-bord/profil" routerLinkActive="active">
+      <i class="fa fa-cog"></i> Mon profil
+    </a>
+    <button type="button" class="logout-btn" (click)="logout()">
+      <i class="fa fa-sign-out"></i> Déconnexion
+    </button>
   </nav>
 </aside>

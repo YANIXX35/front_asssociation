@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class ForgotPassword {
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
+  private router = inject(Router);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -26,14 +27,21 @@ export class ForgotPassword {
       return;
     }
     this.loading = true;
-    this.auth.forgotPassword(this.form.getRawValue().email!).subscribe({
+    const emailVal = this.form.getRawValue().email!;
+    this.auth.forgotPassword(emailVal).subscribe({
       next: (res) => {
         this.loading = false;
-        this.message = res.detail;
+        this.message = "Un e-mail contenant un code OTP de réinitialisation a été envoyé.";
+        setTimeout(() => {
+          this.router.navigate(['/reinitialiser-mot-de-passe'], { queryParams: { email: emailVal } });
+        }, 2000);
       },
       error: () => {
         this.loading = false;
-        this.message = "Si ce compte existe, un email a été envoyé.";
+        this.message = "Si ce compte existe, un e-mail a été envoyé.";
+        setTimeout(() => {
+          this.router.navigate(['/reinitialiser-mot-de-passe'], { queryParams: { email: emailVal } });
+        }, 3000);
       },
     });
   }

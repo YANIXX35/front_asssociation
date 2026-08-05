@@ -1,15 +1,79 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0 0 4px;
+  }
+}
+
+.page-subtitle {
+  color: #8a94a6;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 .stat-card {
-  padding: 30px;
-  text-align: center;
+  padding: 22px;
+  text-align: left;
+  border-radius: 18px;
+  border-color: #edf1f5;
+
+  .stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 1rem;
+
+    &.icon-green {
+      background: #15803d;
+    }
+    &.icon-orange {
+      background: #E76F2C;
+    }
+    &.icon-blue {
+      background: #2563eb;
+    }
+    &.icon-navy {
+      background: #0C2340;
+    }
+  }
+
+  .trend-icon {
+    color: #15803d;
+    background: #e7f6ec;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+  }
 
   .stat-value {
     display: block;
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: #1f2a37;
+    line-height: 1.2;
   }
 
   .stat-label {
-    color: #6b6b6b;
+    color: #8a94a6;
+    font-size: 0.85rem;
   }
 }

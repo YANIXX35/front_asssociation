@@ -10,4 +10,8 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class BureauNav {
   constructor(public auth: AuthService) {}
+
+  logout(): void {
+    this.auth.logout();
+  }
 }
